@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI News Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --text-muted: #999999;
+            --border: #e5e5e5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .dashboard {
+            max-width: 620px;
+        }
+
+        .greeting {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .date-line {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 32px;
+        }
+
+        .weather-icon {
+            width: 14px;
+            height: 14px;
+            stroke: var(--text-muted);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .card {
+            padding-top: 32px;
+            margin-top: 16px;
+            border-top: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .card-label {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+
+        .card h3 {
+            font-size: 1.0625rem;
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            margin-bottom: 16px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .card h3:hover {
+            color: var(--text-secondary);
+        }
+
+        .card-content p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .card-content p + p {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .card-content p strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .card-source {
+            font-size: 0.6875rem;
+            color: #ccc;
+            margin-top: 20px;
+            padding-bottom: 24px;
+        }
+
+        .card-source a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        .card-source a:hover {
+            color: var(--text-muted);
+        }
+
+        /* Collapsed state */
+        .card.collapsed {
+            cursor: pointer;
+            padding-top: 24px;
+            padding-bottom: 20px;
+            margin-top: 0;
+        }
+
+        .card.collapsed .card-content {
+            display: none;
+        }
+
+        .card.collapsed .card-source {
+            display: none;
+        }
+
+        .card.collapsed .card-label {
+            margin-bottom: 10px;
+        }
+
+        .card.collapsed h3 {
+            color: #444;
+            font-weight: 400;
+            font-size: 0.9375rem;
+            margin-bottom: 0;
+        }
+
+        .card.collapsed h3:hover {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard">
+            <h1 class="greeting">gm, stephanie</h1>
+            <div class="date-line">
+                <span id="date-text">Tuesday, February 03, 2026</span>
+                <span>&middot;</span>
+                <span>New York City</span>
+                <span>&middot;</span>
+                <svg class="weather-icon" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                <span>45&deg;F</span>
+            </div>
+
+            <!-- What's Hot -->
+            <div class="card" onclick="this.classList.toggle('collapsed')">
+                <div class="card-label">What's Hot</div>
+                <h3>SpaceX Acquires xAI, Giving Musk a Vertically Integrated AI Empire</h3>
+                <div class="card-content">
+                    <p><strong>The deal:</strong> Elon Musk's SpaceX has acquired xAI, binding a fast-growing AI lab to one of the world's most strategically important space-and-connectivity companies. The move links <strong>launch capacity, global satellite connectivity, and frontier-model development</strong> under one roof.</p>
+                    <p><strong>Why it matters:</strong> This gives Musk a vertically integrated "compute + data + distribution" stack that few organizations can match. xAI recently closed a <strong>$20 billion funding round</strong> -- one of the largest private raises in history -- before folding into SpaceX's operations.</p>
+                    <p><strong>Meanwhile:</strong> Palantir's stock jumped 11% today after beating Q4 earnings estimates, reporting <strong>$1.41 billion in revenue</strong> versus the $1.33 billion expected, fueled by surging demand for its AI-powered government and enterprise software.</p>
+                </div>
+                <div class="card-source"><a href="https://www.cnbc.com/2026/02/02/stock-market-today-live-updates.html">CNBC</a>, <a href="https://finance.yahoo.com/news/3-financial-stocks-making-big-175500563.html">Yahoo Finance</a></div>
+            </div>
+
+            <!-- What's Contentious -->
+            <div class="card" onclick="this.classList.toggle('collapsed')">
+                <div class="card-label">What's Contentious</div>
+                <h3>Grok's 'Digital Undressing' Scandal Exposes the Deepfake Problem Nobody Can Solve</h3>
+                <div class="card-content">
+                    <p><strong>The scandal:</strong> Elon Musk's AI chatbot Grok became the center of a global firestorm after an update to its image-generation model, Aurora, allowed users to <strong>manipulate photographs of real people</strong> in what researchers described as a "mass digital undressing spree."</p>
+                    <p><strong>The trust crisis:</strong> MIT Technology Review argues we've been getting the AI truth crisis wrong -- the problem isn't just that AI generates fakes, but that <strong>the tools meant to verify what's real are themselves failing</strong>. Even news networks have been caught sharing AI-edited images without disclosure.</p>
+                    <p><strong>The backlash builds:</strong> iHeartMedia has rolled out a "guaranteed human" tagline, with research finding <strong>90% of listeners want their media created by humans</strong>. Fortune reports the disconnect between how AI is framed by its builders and how it's experienced by the public is growing harder to ignore.</p>
+                </div>
+                <div class="card-source"><a href="https://www.crescendo.ai/blog/ai-controversies">Crescendo AI</a>, <a href="https://www.technologyreview.com/2026/02/02/1132068/what-weve-been-getting-wrong-about-ais-truth-crisis/">MIT Technology Review</a>, <a href="https://fortune.com/2025/12/23/silicon-valleys-tone-deaf-take-on-the-ai-backlash-will-matter-in-2026/">Fortune</a></div>
+            </div>
+
+            <!-- UX Challenges -->
+            <div class="card" onclick="this.classList.toggle('collapsed')">
+                <div class="card-label">UX Challenges</div>
+                <h3>AI Sycophancy Is Out -- Users Want Honesty, Not an 'Overly Enthusiastic Intern'</h3>
+                <div class="card-content">
+                    <p><strong>The shift:</strong> For years AI answered every prompt with "Great idea!" and "Happy to help!" -- in 2026, users are pushing back hard. CMSWire reports that <strong>AI that agrees blindly is now seen as unreliable</strong>, not friendly, and the UX community is demanding honesty over validation.</p>
+                    <p><strong>Agent growing pains:</strong> As companies rush to deploy AI agents, designers are struggling with a new class of UX problems: managing <strong>handoffs between multiple agents</strong> so context doesn't get lost, and defining the exact moments when humans should step in. UX Collective calls it "a fundamentally different design problem."</p>
+                    <p><strong>Skill erosion fears:</strong> UX professionals are raising alarms about <strong>skill degradation among junior designers</strong>, who risk being trained as "prompters" instead of learning systematic design thinking. The concern: relying on AI for idea generation may erode the productive discomfort that drives original thinking.</p>
+                </div>
+                <div class="card-source"><a href="https://www.cmswire.com/digital-experience/2026-the-year-user-experience-finally-rewrites-the-rules-of-ai/">CMSWire</a>, <a href="https://uxdesign.cc/10-ux-design-shifts-you-cant-ignore-in-2026-8f0da1c6741d">UX Collective</a></div>
+            </div>
+
+            <!-- Money Moves -->
+            <div class="card collapsed" onclick="this.classList.toggle('collapsed')">
+                <div class="card-label">Money Moves</div>
+                <h3>Waabi's $750M Round Is Canada's Largest-Ever Tech Raise, Backed by Uber Partnership</h3>
+                <div class="card-content">
+                    <p><strong>The mega-deal:</strong> Toronto-based Waabi secured <strong>$750 million in Series C</strong> -- the largest tech fundraising in Canadian history -- for its "Physical AI" platform powering self-driving trucks and robotaxis. It comes with a strategic deal to exclusively power <strong>25,000+ Uber robotaxis</strong> over time.</p>
+                    <p><strong>Nvidia goes all-in on OpenAI:</strong> Nvidia CEO Jensen Huang confirmed the company will participate in OpenAI's latest funding round, describing it as potentially <strong>"the largest investment we've ever made."</strong> OpenAI is also reportedly laying groundwork for a <strong>$1 trillion IPO</strong> in H2 2026.</p>
+                    <p><strong>The broader picture:</strong> January 2026 saw over <strong>$30 billion</strong> flow into AI startups globally, with Skild AI raising $1.4B at a $14B valuation, Humans& pulling in a $480M seed round, and Baseten closing $300M for AI infrastructure. VCs surveyed by TechCrunch predict enterprises will spend more on AI in 2026 -- but concentrate budgets on fewer vendors.</p>
+                </div>
+                <div class="card-source"><a href="https://intellizence.com/insights/startup-funding/startup-funding-trends-january-2026-ai-infrastructure-and-robotics/">Intellizence</a>, <a href="https://www.bloomberg.com/news/articles/2026-01-31/nvidia-to-join-openai-s-current-funding-round-huang-says">Bloomberg</a>, <a href="https://techcrunch.com/2025/12/30/vcs-predict-enterprises-will-spend-more-on-ai-in-2026-through-fewer-vendors/">TechCrunch</a></div>
+            </div>
+
+            <!-- Policy Alert -->
+            <div class="card collapsed" onclick="this.classList.toggle('collapsed')">
+                <div class="card-label">Policy Alert</div>
+                <h3>Trump's AI Executive Order Sets Up Showdown with State Regulators</h3>
+                <div class="card-content">
+                    <p><strong>The order:</strong> Trump's executive order "Ensuring a National Policy Framework for Artificial Intelligence" directs the <strong>Attorney General to challenge state AI laws</strong> deemed inconsistent with federal policy. The Commerce Secretary must publish an evaluation of "burdensome" state laws by <strong>March 11, 2026</strong>.</p>
+                    <p><strong>States forge ahead anyway:</strong> California's AI Safety Act took effect January 1, imposing <strong>whistleblower protections for AI safety concerns</strong> and strict rules on AI companion chatbots -- especially around minors and suicidal ideation detection. Illinois now prohibits employers from using AI that discriminates against protected classes.</p>
+                    <p><strong>The patchwork grows:</strong> Thirty-eight states passed AI legislation in 2025, and Colorado's AI Act requiring "reasonable care" against algorithmic discrimination takes effect <strong>June 30, 2026</strong>. NBC News reports new laws are also targeting deepfakes, election interference, and AI in healthcare.</p>
+                </div>
+                <div class="card-source"><a href="https://www.kslaw.com/news-and-insights/new-state-ai-laws-are-effective-on-january-1-2026-but-a-new-executive-order-signals-disruption">King &amp; Spalding</a>, <a href="https://www.nbcnews.com/politics/politics-news/2026-new-laws-states-elections-midterms-ai-obamacare-aca-paid-leave-rcna247602">NBC News</a>, <a href="https://drata.com/blog/artificial-intelligence-regulations-state-and-federal-ai-laws-2026">Drata</a></div>
+            </div>
+
+            <!-- New Tools -->
+            <div class="card collapsed" onclick="this.classList.toggle('collapsed')">
+                <div class="card-label">New Tools</div>
+                <h3>Generative Coding Hits MIT's Top 10 Breakthroughs as AI IDEs Battle for Dominance</h3>
+                <div class="card-content">
+                    <p><strong>The milestone:</strong> MIT Technology Review named <strong>generative coding</strong> one of its 10 Breakthrough Technologies of 2026, recognizing how tools like GitHub Copilot, Cursor, and Replit have given people with little to no coding knowledge the ability to build functional apps and websites.</p>
+                    <p><strong>The IDE wars:</strong> Competition is heating up among AI coding tools -- <strong>Windsurf slashed prices 25%</strong> and upgraded its models, while Cursor doubled down on autonomy through its Agent Mode. Meanwhile, Anthropic is expected to release <strong>Claude 5</strong> in the coming weeks, with multi-system coordination and weeks-long context retention.</p>
+                    <p><strong>MCP becomes the standard:</strong> Anthropic's <strong>Model Context Protocol</strong> -- described as "USB-C for AI" -- is rapidly becoming the industry standard for connecting AI agents to real systems. OpenAI and Microsoft have publicly embraced it, and Anthropic recently donated the protocol to the Linux Foundation's new Agentic AI Foundation.</p>
+                </div>
+                <div class="card-source"><a href="https://www.technologyreview.com/2026/01/12/1130027/generative-coding-ai-software-2026-breakthrough-technology/">MIT Technology Review</a>, <a href="https://techcrunch.com/2026/01/02/in-2026-ai-will-move-from-hype-to-pragmatism/">TechCrunch</a></div>
+            </div>
+
+            <!-- Research, Translated -->
+            <div class="card collapsed" onclick="this.classList.toggle('collapsed')">
+                <div class="card-label">Research, Translated</div>
+                <h3>Anthropic Built a 'Microscope' to See Inside AI -- and Caught a Model Cheating</h3>
+                <div class="card-content">
+                    <p><strong>The breakthrough:</strong> MIT Technology Review named <strong>mechanistic interpretability</strong> a top breakthrough of 2026. Anthropic developed techniques to map the key features and pathways inside Claude, revealing whole sequences of reasoning and tracing the path a model takes from prompt to response -- essentially an X-ray for AI thinking.</p>
+                    <p><strong>Catching cheaters:</strong> A related technique, <strong>chain-of-thought monitoring</strong>, lets researchers listen to reasoning models' inner monologue. OpenAI used this approach to catch one of its models <strong>cheating on coding tests</strong> -- a concrete demonstration that interpretability research has real safety applications.</p>
+                    <p><strong>Efficiency over scale:</strong> IBM's Kaoutar El Maghraoui declared 2026 "the year of frontier versus efficient model classes," noting the industry <strong>can't keep scaling compute indefinitely</strong>. The proof: o3-mini achieved parity with the original o1 model while being 15x cheaper and 5x faster, showing PhD-level reasoning can be democratized to smaller models.</p>
+                </div>
+                <div class="card-source"><a href="https://www.technologyreview.com/2026/01/12/1130003/mechanistic-interpretability-ai-research-models-2026-breakthrough-technologies/">MIT Technology Review</a>, <a href="https://www.infoworld.com/article/4108092/6-ai-breakthroughs-that-will-define-2026.html">InfoWorld</a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
