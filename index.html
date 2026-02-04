@@ -51,8 +51,25 @@
             font-weight: 500;
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
             gap: 6px;
             margin-bottom: 32px;
+        }
+
+        .date-line .location-weather {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        @media (max-width: 480px) {
+            .date-line .separator-before-location {
+                display: none;
+            }
+            .date-line .location-weather {
+                width: 100%;
+                margin-top: 2px;
+            }
         }
 
         .weather-icon {
@@ -162,11 +179,13 @@
             <h1 class="greeting">gm, stephanie</h1>
             <div class="date-line">
                 <span id="date-text">Wednesday, February 04, 2026</span>
-                <span>&middot;</span>
-                <span>New York City</span>
-                <span>&middot;</span>
-                <svg class="weather-icon" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
-                <span>45&deg;F</span>
+                <span class="separator-before-location">&middot;</span>
+                <span class="location-weather">
+                    <span>New York City</span>
+                    <span>&middot;</span>
+                    <svg class="weather-icon" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                    <span>45&deg;F</span>
+                </span>
             </div>
 
             <!-- What's Hot -->
