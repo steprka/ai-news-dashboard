@@ -2,7 +2,7 @@ name: Daily News Update
 
 on:
   schedule:
-    - cron: '0 13 * * *'  # 8 AM EST (13:00 UTC) daily
+    - cron: '0 12 * * *'  # 7 AM EST (12:00 UTC) daily
   workflow_dispatch:  # Manual trigger from GitHub UI
 
 jobs:
