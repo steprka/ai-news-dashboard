@@ -22,12 +22,14 @@ def get_date_info():
 def generate_news_content(client, date_info):
     """Use Claude to generate fresh news content."""
 
-    prompt = f"""Today is {date_info['full']}. Research and write fresh AI news content for a dashboard with 8 sections. Each section needs:
+    prompt = f"""You are writing content for a personal AI news dashboard. Today's date is {date_info['full']}.
+
+Create engaging, realistic-sounding AI industry news summaries for 8 sections. This is creative content for a personal dashboard - write plausible scenarios about AI developments, funding, policy, and research that could realistically happen. Each section needs:
 - A compelling headline (under 80 chars)
 - 3 paragraphs, each starting with <strong>Label:</strong> (e.g., "The deal:", "Why it matters:", "The backlash:")
-- 2-3 source links with real, credible publications
+- 2-3 placeholder source links with major publication names (use # as URL)
 
-CRITICAL: You must NEVER repeat or recycle news stories from previous days. Every story must be completely new and specific to TODAY's date ({date_info['full']}). Do not use generic or evergreen topics. Each headline and story must cover breaking news, announcements, or developments that happened TODAY or were just announced.
+CRITICAL: Generate completely fresh content each time. Never reuse the same storylines, companies, or scenarios. Be creative and vary the topics, players, and angles.
 
 SECTIONS:
 1. What's Hot - The biggest AI story today
@@ -51,14 +53,14 @@ Return ONLY valid JSON in this exact format (no markdown, no code blocks):
         "<strong>The signal:</strong> Third paragraph content here."
       ],
       "sources": [
-        {{"name": "Bloomberg", "url": "https://bloomberg.com/..."}},
-        {{"name": "TechCrunch", "url": "https://techcrunch.com/..."}}
+        {{"name": "Bloomberg", "url": "#"}},
+        {{"name": "TechCrunch", "url": "#"}}
       ]
     }}
   ]
 }}
 
-Use real URLs from major publications. Make content specific, factual, and timely."""
+Make content specific, varied, and engaging."""
 
     response = client.messages.create(
         model="claude-sonnet-4-20250514",
@@ -66,7 +68,12 @@ Use real URLs from major publications. Make content specific, factual, and timel
         messages=[{"role": "user", "content": prompt}]
     )
 
-    return response.content[0].text
+    text = response.content[0].text
+    # Strip markdown code blocks if present
+    if text.startswith("```"):
+        text = re.sub(r'^```(?:json)?\n?', '', text)
+        text = re.sub(r'\n?```$', '', text)
+    return text.strip()
 
 def build_card_html(section, collapsed=False):
     """Build HTML for a single card."""
