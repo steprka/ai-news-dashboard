@@ -6,7 +6,26 @@ Uses Claude API to research and generate fresh AI news content.
 
 import anthropic
 import re
+import json
+import os
 from datetime import datetime
+
+HISTORY_FILE = os.path.join(os.path.dirname(__file__), "headline_history.json")
+
+def load_headline_history():
+    """Load previous headlines to avoid repetition."""
+    if os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE, "r") as f:
+            return json.load(f)
+    return []
+
+def save_headline_history(headlines):
+    """Save headlines, keeping only the last 50."""
+    history = load_headline_history()
+    history.extend(headlines)
+    history = history[-50:]  # Keep last 50 headlines
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(history, f)
 
 def get_date_info():
     """Get formatted date information."""
@@ -19,8 +38,16 @@ def get_date_info():
         "full": now.strftime("%A, %B %d, %Y")
     }
 
-def generate_news_content(client, date_info):
+def generate_news_content(client, date_info, previous_headlines):
     """Use Claude to generate fresh news content."""
+
+    avoid_section = ""
+    if previous_headlines:
+        avoid_section = f"""
+CRITICAL - DO NOT USE ANY OF THESE PREVIOUS HEADLINES OR SIMILAR TOPICS:
+{chr(10).join(f'- {h}' for h in previous_headlines)}
+
+You MUST create completely different stories with different companies, topics, and angles. No variations of the above."""
 
     prompt = f"""You are writing content for a personal AI news dashboard. Today's date is {date_info['full']}.
 
@@ -28,8 +55,7 @@ Create engaging, realistic-sounding AI industry news summaries for 8 sections. T
 - A compelling headline (under 80 chars)
 - 3 paragraphs, each starting with <strong>Label:</strong> (e.g., "The deal:", "Why it matters:", "The backlash:")
 - 2-3 placeholder source links with major publication names (use # as URL)
-
-CRITICAL: Generate completely fresh content each time. Never reuse the same storylines, companies, or scenarios. Be creative and vary the topics, players, and angles.
+{avoid_section}
 
 SECTIONS:
 1. What's Hot - The biggest AI story today
@@ -108,7 +134,6 @@ def update_index_html(date_info, sections_data):
     html = re.sub(date_pattern, new_date, html)
 
     # Build all cards HTML
-    import json
     data = json.loads(sections_data)
 
     cards_html = []
@@ -134,11 +159,21 @@ def main():
     client = anthropic.Anthropic()
     date_info = get_date_info()
 
+    # Load previous headlines to avoid repetition
+    previous_headlines = load_headline_history()
+    print(f"Loaded {len(previous_headlines)} previous headlines to avoid")
+
     print(f"Generating news for {date_info['full']}...")
-    news_content = generate_news_content(client, date_info)
+    news_content = generate_news_content(client, date_info, previous_headlines)
 
     print("Updating index.html...")
     update_index_html(date_info, news_content)
+
+    # Save new headlines to history
+    data = json.loads(news_content)
+    new_headlines = [s["headline"] for s in data["sections"]]
+    save_headline_history(new_headlines)
+    print(f"Saved {len(new_headlines)} new headlines to history")
 
     print("Done!")
 
