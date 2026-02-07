@@ -27,6 +27,8 @@ def generate_news_content(client, date_info):
 - 3 paragraphs, each starting with <strong>Label:</strong> (e.g., "The deal:", "Why it matters:", "The backlash:")
 - 2-3 source links with real, credible publications
 
+CRITICAL: You must NEVER repeat or recycle news stories from previous days. Every story must be completely new and specific to TODAY's date ({date_info['full']}). Do not use generic or evergreen topics. Each headline and story must cover breaking news, announcements, or developments that happened TODAY or were just announced.
+
 SECTIONS:
 1. What's Hot - The biggest AI story today
 2. What's Contentious - AI controversies, ethics debates, backlash
