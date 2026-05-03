@@ -89,7 +89,7 @@ Return ONLY valid JSON in this exact format (no markdown, no code blocks):
 Make content specific, varied, and engaging."""
 
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-sonnet-4-5",
         max_tokens=8000,
         messages=[{"role": "user", "content": prompt}]
     )
